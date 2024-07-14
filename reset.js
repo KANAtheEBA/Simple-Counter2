@@ -5,74 +5,26 @@
         $counter.textContent = 0;
     };
 
-    document.getElementById("js-reset-button").addEventListener("click", clickHandler);
+    const resetButton = document.getElementById("js-reset-button").addEventListener("click", clickHandler);
 
-    let intDistance = 15;
-    let bEscaping = false;
-    let strDirection = null;
-    let strDirectionArray = new Array("Up", "Down", "Left", "Right");
+    const getRandomPosition = (element) => {
+        const parent = element.parentElement;
+        const parentRect = parent.getBoundingclientRect();
+        const elementRect = element.getBoundingclientRect();
+        const maxX = parentRect.width - elementRect.width;
+        const maxY = parentRect.height - elementRect.height;
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+        return { x: randomX, y: randomY };
+    };
 
-    const errorEnvironment = () => {
-        alert("ご利用の環境では、このスクリプトは作動しません。");
-    }
+    const moveButton = () => {
+        const position = getRandomPosition(resetButton);
+        resetButton.style.left = `${position.x}px`;
+        resetButton.style.top = `${position.y}px`
+    };
 
-    const byId = (id) => {
-        return document.getElementById(id);
-    }
+    resetButton.addEventListener("mouseover", moveButton);
 
-    const addEvent = (evt, func, cap) => {
-        if(this.addEventListener){
-            this.addEventListener(evt, func, cap);
-        } else if(this.attachEvent){
-            this.attachEvent("on" + evt, func);
-        } else {
-            errorEnvironment();
-        }
-    }
-    Object.prototype.addEvent = addEvent;
-    Document.prototype.addEvent = addEvent;
-    Element.prototype.addEvent = addEvent;
-    
-    const removeEvent = (evt, func, cap) => {
-        if(this.removeEventListener){
-            this.removeEventListener(evt, func, cap);
-        } else if(this.detachEvent){
-            this.detachEvent("on" + evt, func);
-        } else {
-            errorEnvironment();
-        }
-    }
-    Object.prototype.removeEvent = removeEvent;
-    Document.prototype.removeEvent = removeEvent;
-    Element.prototype.removeEvent = removeEvent;
-
-    const addTop = (elm, intOffsetY) => {
-        if(!elm.hasEscapeTop) {
-            elm.hasEscapeTop = true; elm.escapeTop = 0;
-            elm.escapeTop += intOffsetY;
-            elm.style.top = String(elm.escapeTop) + "px";
-        }
-
-    const addLeft = (elm, intOffsetX) => {
-        if(!elm.hasEscapeLeft) {
-            elm.hasEscapeLeft = true; elm.escapeLeft = 0;
-            elm.escapeLeft += intOffsetX;
-            elm.style.left = String(elm.escapeLeft) + "px";
-        }
-    }
-
-    const doEscapeCore = (intTimes) => {
-        if(!intTimes) {
-            cancelEscape(); return;
-        }
-        if(!window.strDirection) {
-            bEscaping = true;
-            let intDirection = Math.floor(Math.random() * 4);
-            window.strDirection = window.strDirectionArray[intDirection];
-        }
-        
-    }
-
-    }
 })();
 
