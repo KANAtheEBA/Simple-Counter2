@@ -1,9 +1,17 @@
 (() => {
     const $counter = document.getElementById("js-counter");
 
+    const info = [
+        "チッ",
+        "はいはい、強い強い(笑)",
+        "まだやってるんですか？"
+    ];
+    let infoIndex = 0;
+
     const clickHandler = () => {
         $counter.textContent = 0;
-        alert("チッ");
+        alert(info[infoIndex]);
+        infoIndex = (infoIndex + 1) % info.length;
     };
 
     const resetButton = document.getElementById("js-reset-button");
@@ -29,4 +37,3 @@
     resetButton.addEventListener("mouseover", moveButton);
 
 })();
-
